@@ -18,9 +18,14 @@ namespace RedCloud.Controllers
             _logger = logger;
         }
 
-        public Task<IActionResult> Profile()
+        public async Task<IActionResult> Profile()
         {
             int AdminUserId = 2;
+            if(AdminUserId >= 0)
+            {
+                var response = await _adminUserService.GetProfileById(AdminUserId);
+                return View(response);
+            }
 
             return View();
         }

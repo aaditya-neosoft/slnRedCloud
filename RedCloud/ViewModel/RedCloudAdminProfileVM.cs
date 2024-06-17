@@ -1,4 +1,5 @@
 ﻿using RedCloud.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace RedCloud.ViewModel
 {
@@ -8,10 +9,16 @@ namespace RedCloud.ViewModel
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string MobileNumber { get; set; }
-        public string? Password { get; set; }
-        public bool IsActive { get; set; } = true;
-        public int? ResellerAdminUserId { get; set; }
-        public virtual ResellerAdminUser ResellerAdminUsers { get; set; }
+
+        //[Required(ErrorMessage = "Password is required")]
+        //[StringLength(255, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
+        //[DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        //[Required(ErrorMessage = "Confirm Password is required")]
+        //[StringLength(255, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
+        //[DataType(DataType.Password)]
+        //[Compare("Password")]
+        //public string? ConfirmPassword { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using RedCloud.Application.Features.RedCloudAdmins.Commands.CreateRedCloudAdmin;
 using RedCloud.Application.Features.ResellerAdminuser.Queries;
 using RedCloud.Domain.Entities;
 using RedCloud.Interfaces;
+using RedCloud.ViewModel;
 
 namespace RedCloud.Services
 {
@@ -12,15 +13,15 @@ namespace RedCloud.Services
 
         private readonly IApiClient<RedCloudAdminVM> _client;
         public readonly ILogger<RedCloudAdminService> _logger;
-        private readonly IApiClient<RedCloudAdmin> _adminclient;
+        private readonly IApiClient<RedCloudAdminProfileVM> _adminclient;
 
-        public RedCloudAdminService(IApiClient<RedCloudAdminVM> client, ILogger<RedCloudAdminService> logger, IApiClient<RedCloudAdmin> adminclient)
+        public RedCloudAdminService(IApiClient<RedCloudAdminVM> client, ILogger<RedCloudAdminService> logger, IApiClient<RedCloudAdminProfileVM> adminclient)
         {
             _client = client;
             _logger = logger;
             _adminclient = adminclient;
         }
-        public async Task<RedCloudAdmin> GetProfileById(int Id)
+        public async Task<RedCloudAdminProfileVM> GetProfileById(int Id)
         {
             var rate = await _adminclient.GetByIdAsync("RedCloudAdmin/GetProfileById/" + Id);
             return rate.Data;
