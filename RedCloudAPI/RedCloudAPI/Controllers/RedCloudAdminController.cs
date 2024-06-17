@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RedCloud.Application.Features.Account.Commands;
 using RedCloud.Application.Features.RedCloudAdmins.Commands;
 using RedCloud.Application.Features.RedCloudAdmins.Commands.CreateRedCloudAdmin;
 using RedCloud.Application.Features.RedCloudAdmins.Queries;
@@ -21,6 +22,36 @@ namespace RedCloudAPI.Controllers
             _mediator = mediator;
             _logger = logger;
         }
+
+        [HttpGet("GetProfileById/{Id}")]
+        public async Task<IActionResult> GetProfileById(int Id)
+        {
+            try
+            {
+                var response = await _mediator.Send(new GetByIdQuery { RedCloudAdminUserId = Id });
+                if (response != null)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception for debugging purposes
+
+                return StatusCode(500, "Internal server error");
+            }
+        }
+        [HttpPost("ChangePassword")]
+        public async Task<ActionResult> ChangePassword(ChangePasswordCommand model)
+        {
+            var response = await _mediator.Send(model);
+            return Ok(response);
+        }
+
         [HttpPost("AddAdminUser")]
         public async Task<ActionResult> Create([FromBody] CreateRedCloudAdminCommand CreateAdminUserCommand)
         {

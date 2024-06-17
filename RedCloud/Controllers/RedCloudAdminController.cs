@@ -18,6 +18,13 @@ namespace RedCloud.Controllers
             _logger = logger;
         }
 
+        public Task<IActionResult> Profile()
+        {
+            int AdminUserId = 2;
+
+            return View();
+        }
+
         [HttpGet("AddAdminUser")]
         public IActionResult AddAdmin()
         {

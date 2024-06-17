@@ -12,11 +12,18 @@ namespace RedCloud.Services
 
         private readonly IApiClient<RedCloudAdminVM> _client;
         public readonly ILogger<RedCloudAdminService> _logger;
+        private readonly IApiClient<RedCloudAdmin> _adminclient;
 
-        public RedCloudAdminService(IApiClient<RedCloudAdminVM> client, ILogger<RedCloudAdminService> logger)
+        public RedCloudAdminService(IApiClient<RedCloudAdminVM> client, ILogger<RedCloudAdminService> logger, IApiClient<RedCloudAdmin> adminclient)
         {
             _client = client;
             _logger = logger;
+            _adminclient = adminclient;
+        }
+        public async Task<RedCloudAdmin> GetProfileById(int Id)
+        {
+            var rate = await _adminclient.GetByIdAsync("RedCloudAdmin/GetProfileById/" + Id);
+            return rate.Data;
         }
 
         //public async Task<int> CreateAdminUser(RedCloudAdmin adminUser)
