@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace RedCloud.Application.Features.Reseller.AssignCredit.Queries
 {
-    public class GetResellerRateByIdQuery : IRequest<Response<RateAssignCredit>>
+    //public class GetAssignCreditListByRateAssignCreditIdQuery : IRequest<Response<AssignCredits>>
+    public class GetAssignCreditListByRateAssignCreditIdQuery : IRequest<Response<IEnumerable<AssignCredits>>>
     {
-        public int RateAssignCreditId { get; set; }
+        public int AssignCreditByRateId { get; set; }
     }
 }

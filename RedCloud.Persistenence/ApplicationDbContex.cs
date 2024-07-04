@@ -8,7 +8,7 @@ using System.Reflection.Emit;
 
 namespace RedCloud.Persistenence
 {
-    [ExcludeFromCodeCoverage]
+    //[ExcludeFromCodeCoverage]
     public class ApplicationDbContext : DbContext
     {
 
@@ -33,8 +33,8 @@ namespace RedCloud.Persistenence
             modelBuilder.Entity<AdminCount>().HasNoKey();
 
             modelBuilder.Entity<ResellerInboundMessagesReport>().HasNoKey();//new
-
-
+            modelBuilder.Entity<AssignCredits>().HasNoKey();
+            modelBuilder.Entity<AssignCredits>().Metadata.SetIsTableExcludedFromMigrations(true);
 
         }
 
@@ -93,6 +93,8 @@ namespace RedCloud.Persistenence
 
         public DbSet<GetAllAssignCredit> GetAllAssignCredit { get; set; }
         public DbSet<AssignCreditDetailsVM> AssignCreditDetailsVM { get; set; }
+        public DbSet<AssignCreditByRate> AssignCreditByRate { get; set; }
+        public DbSet<AssignCredits> AssignCredits { get; set; }
 
 
     }

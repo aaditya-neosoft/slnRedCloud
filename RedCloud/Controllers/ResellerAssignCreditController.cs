@@ -12,7 +12,55 @@ namespace RedCloud.Controllers
         {
             _resellerAssignCreditService = resellerAssignCreditService;
         }
-      
+        public async Task<IActionResult> GetByRateIdForAssignCredit(int id)
+        {
+            
+            var lstOrg = await _resellerAssignCreditService.GetOrganizationAdminList();
+            var lstTypes = await _resellerAssignCreditService.GetCreditsTypeList();
+            var lstCreditAssign = await _resellerAssignCreditService.GetAssignCreditsByAssignCreditByRateId(id);
+            ViewBag.listOrg = lstOrg;
+            ViewBag.listTypes = lstTypes;
+            ViewBag.lstCreditAssign = lstCreditAssign;
+            if (id != null || id != 0)
+            {
+                var response = await _resellerAssignCreditService.GetAssignByRateId(id);
+                return View(response);
+            }
+            return View();
+
+        }
+
+        //[HttpPost]
+        public async Task<IActionResult> AddAssignCreditByRate(int id)
+        {
+            ViewBag.RateAssignCreditId = id;
+            var lstTypes = await _resellerAssignCreditService.GetCreditTypeList();
+            //ViewBag.listOrg = lstOrg;
+            ViewBag.listTypes = lstTypes;
+            //if (ModelState.IsValid)
+            //{
+            //    var res = await _resellerAssignCreditService.AddAssignCreditByRate(model);
+            //    return RedirectToAction("ListRate");
+            //}
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddAssignCreditByRate(AssignCreditByRateVM model)
+        {
+            
+            //var lstOrg = await _resellerAssignCreditService.GetOrganizationAdminList();
+            var lstTypes = await _resellerAssignCreditService.GetCreditTypeList();
+            //ViewBag.listOrg = lstOrg;
+            ViewBag.listTypes = lstTypes;
+            //model.RateAssignCreditId = 1;
+            if (ModelState.IsValid)
+            {
+                var res = await _resellerAssignCreditService.AddAssignCreditByRate(model);
+                return RedirectToAction("ListRate");
+            }
+            return View();
+        }
+
         public async Task<IActionResult> AssignCreditDetailsById(int id)
         {
             if (id != null || id != 0)

@@ -14,15 +14,54 @@ namespace RedCloud.Services
 		private readonly IApiClient<RateAssignCreditVM> _apiClientRateAssignCredit;
 		private readonly IApiClient<GetAllAssignCredit> _apiClientGetAllAssignCredit;
 		private readonly IApiClient<AssignCreditDetailsVM> _apiClientGetAllAssignCreditDetails;
+		private readonly IApiClient<AssignCreditByRateVM> _apiClientAssignCreditByRate;
+		private readonly IApiClient<GetByRateIdForAssignCreditVM> _apiClientGetByRateIdForAssignCredit;
+		private readonly IApiClient<AssignCredits> _apiClientAssignCredits;
 
-        public ResellerAssignCreditService(IApiClient<OrganizationAdmin> apiClientOrganizationAdmin, IApiClient<CreditsType> apiClientCreditsType, IApiClient<RateAssignCreditVM> apiClientRateAssignCredit, IApiClient<GetAllAssignCredit> apiClientGetAllAssignCredit, IApiClient<AssignCreditDetailsVM> apiClientGetAllAssignCreditDetails)
+        public ResellerAssignCreditService(IApiClient<OrganizationAdmin> apiClientOrganizationAdmin, 
+            IApiClient<CreditsType> apiClientCreditsType, 
+            IApiClient<RateAssignCreditVM> apiClientRateAssignCredit, 
+            IApiClient<GetAllAssignCredit> apiClientGetAllAssignCredit, 
+            IApiClient<AssignCreditDetailsVM> apiClientGetAllAssignCreditDetails, 
+            IApiClient<AssignCreditByRateVM> apiClientAssignCreditByRate,
+            IApiClient<GetByRateIdForAssignCreditVM> apiClientGetByRateIdForAssignCredit,
+            IApiClient<AssignCredits> apiClientAssignCredits
+            )
         {
             _apiClientOrganizationAdmin = apiClientOrganizationAdmin;
             _apiClientCreditsType = apiClientCreditsType;
 			_apiClientRateAssignCredit = apiClientRateAssignCredit;
             _apiClientGetAllAssignCredit = apiClientGetAllAssignCredit;
             _apiClientGetAllAssignCreditDetails = apiClientGetAllAssignCreditDetails;
+            _apiClientAssignCreditByRate = apiClientAssignCreditByRate;
+            _apiClientGetByRateIdForAssignCredit = apiClientGetByRateIdForAssignCredit;
+            _apiClientAssignCredits = apiClientAssignCredits;
         }
+        //public async Task<AssignCredits> GetAssignCreditsByAssignCreditByRateId(int Id)
+        public async Task<IEnumerable<AssignCredits>> GetAssignCreditsByAssignCreditByRateId(int Id)
+        {
+            var rate = await _apiClientAssignCredits.GetListByIdAsync("ResellerAssignCredit/GetAssignCreditByRateAssignCreditId/" + Id);
+            return rate.Data;
+        }
+
+        public async Task<GetByRateIdForAssignCreditVM> GetAssignByRateId(int Id)
+        {
+            var rate = await _apiClientGetByRateIdForAssignCredit.GetByIdAsync("ResellerAssignCredit/GetRateById/" + Id);
+            return rate.Data;
+        }
+        public async Task<IEnumerable<CreditsType>> GetCreditTypeList()
+        {
+            //_logger.LogInformation("GetAllCountry Service initiated");
+            var result = await _apiClientCreditsType.GetAllAsync("ResellerAssignCredit/GetCreditTypeList");
+            //_logger.LogInformation("GetAllCountry Service conpleted");
+            return result.Data;
+        }
+        public async Task<int> AddAssignCreditByRate(AssignCreditByRateVM model)
+        {
+            var users = await _apiClientAssignCreditByRate.PostAsync("ResellerAssignCredit/AddCreditAssignByRate", model);
+            return users.Data;
+        }
+
 
         public async Task<IEnumerable<GetAllAssignCredit>> GetAllAssignCredit()
         {

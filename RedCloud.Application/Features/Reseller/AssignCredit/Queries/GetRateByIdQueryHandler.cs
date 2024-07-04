@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 
 namespace RedCloud.Application.Features.Reseller.AssignCredit.Queries
 {
-    public class GetRateByIdQueryHandler : IRequestHandler<GetRateByIdQuery, Response<RateAssignCredit>>
+    public class GetRateByIdQueryHandler : IRequestHandler<GetResellerRateByIdQuery, Response<RateAssignCredit>>
     {
         private readonly IAsyncRepository<RateAssignCredit> _repository;
         public GetRateByIdQueryHandler(IAsyncRepository<RateAssignCredit> repository)
         {
             _repository = repository;
         }
-        public async Task<Response<RateAssignCredit>> Handle(GetRateByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Response<RateAssignCredit>> Handle(GetResellerRateByIdQuery request, CancellationToken cancellationToken)
         {
             //var Res2 = await _repository.StoredProcedureQueryAsync("usp_GetOrganizationType");
             var parameters = new[]

@@ -193,13 +193,13 @@
                                                     <i class="fa-solid fa-circle-notch" style="color: #FF8C00;"></i>
                                                 </a>
 
-                                                <a class="delete-btn btn-action" data-id="@item.RateAssignCreditId" data-name="@item.GetAllAssignCreditName" >
+                                                @* <a class="delete-btn btn-action" data-id="@item.RateAssignCreditId" data-name="@item.GetAllAssignCreditName" >
                                                     <i class="fa-solid fa-trash" style="color: #cb1010;"></i>
-                                                </a>
-
-                                                @* <a class="delete-btn btn-action" data-id=" @item.RateAssignCreditId" data-name="@item.RateAssignCreditId">
-                                                    <i class="fa-solid fa-dollar-sign"></i>
                                                 </a> *@
+
+                                                <a asp-action="GetByRateIdForAssignCredit" asp-route-id=" @item.RateAssignCreditId" asp-controller="ResellerAssignCredit" class="delete-btn btn-action" data-id="@item.RateAssignCreditId" data-name="@item.RateAssignCreditId">
+                                                    <i class="fa-solid fa-dollar-sign"></i>
+                                                </a>
                                             </td> 
                                         </tr>
                                     }

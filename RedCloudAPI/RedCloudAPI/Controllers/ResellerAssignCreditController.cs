@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RedCloud.Application.Features.Account.Queries;
 using RedCloud.Application.Features.OrganizationAdmins.Commands;
+using RedCloud.Application.Features.Rates.Queries;
 using RedCloud.Application.Features.Reseller.AssignCredit.Commands;
 using RedCloud.Application.Features.Reseller.AssignCredit.Queries;
 using RedCloud.Application.Models.Mail;
@@ -17,6 +18,43 @@ namespace RedCloudAPI.Controllers
         public ResellerAssignCreditController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet("GetAssignCreditByRateAssignCreditId/{Id}")]
+        public async Task<IActionResult> GetAssignCreditListByRateAssignCreditId(int Id)
+        {
+            try
+            {
+                var response = await _mediator.Send(new GetAssignCreditListByRateAssignCreditIdQuery { AssignCreditByRateId = Id });
+                if (response != null)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception for debugging purposes
+
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpGet("GetCreditTypeList")]
+        public async Task<IActionResult> GetCreditTypeList()
+        {
+            var query = new GetCreditTypeQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+        [HttpPost("AddCreditAssignByRate")]
+        public async Task<ActionResult> AddCreditAssignByRate([FromBody] AddAssignCreditCommand model)
+        {
+            var response = await _mediator.Send(model);
+            return Ok(response);
         }
 
         [HttpGet("GetAllAssignCredit")]
@@ -55,7 +93,7 @@ namespace RedCloudAPI.Controllers
         {
             try
             {
-                var response = await _mediator.Send(new GetRateByIdQuery { RateAssignCreditId = Id });
+                var response = await _mediator.Send(new GetResellerRateByIdQuery { RateAssignCreditId = Id });
                 if (response != null)
                 {
                     return Ok(response);

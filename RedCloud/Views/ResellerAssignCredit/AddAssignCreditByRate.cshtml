@@ -1,0 +1,107 @@
+﻿@model RedCloud.ViewModel.AssignCreditByRateVM
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Assign Credit</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start --> 
+                <form asp-action="AddAssignCreditByRate" method="post" id="user-query-form">
+                    <div class="card-body">
+                        <input type="hidden" asp-for="RateAssignCreditId" value=@ViewBag.RateAssignCreditId/>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <label for="CreditDate">Credit Date</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="date" class="form-control" asp-for="CreditDate" placeholder="Enter Credit Date">
+                                    <span asp-validation-for="CreditDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <label for="TypeId">Credit Type</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select asp-for="TypeId " class="form-control"
+                                            asp-items="@(new SelectList(ViewBag.listTypes,"TypeId","TypeName"))" required>
+                                        <option value="">Select Orgaization</option>
+                                    </select>
+                                    <span asp-validation-for="TypeId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <label for="Amount">Amount</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" asp-for="Amount" placeholder="Enter Amount">
+                                    <span asp-validation-for="Amount" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <label for="NoOfCredits">Number Of Credits</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" asp-for="NoOfCredits" placeholder="Enter Number Of Credits">
+                                    <span asp-validation-for="NoOfCredits" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <label for="Expiration">Expiration</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input class="form-control" placeholder="385" asp-for="Expiration">
+                                    <span asp-validation-for="Expiration" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <label for="Note">Note</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea class="form-control" placeholder="Enter Note" asp-for="Note"></textarea>
+                                    <span asp-validation-for="Note" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    
+                                </div>
+                                <div class="col-md-8">
+                                    <button type="submit" class="btn btn-primary ml-3">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5"></div>
+                            <div class="col-2">
+                                
+                            </div>
+                            <div class="col-5"></div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
