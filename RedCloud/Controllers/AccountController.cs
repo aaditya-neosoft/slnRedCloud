@@ -33,6 +33,7 @@ namespace RedCloud.Controllers
             _accountService = accountService;
             _mailService = mailService;
             _distributedCache = distributedCache;
+            _encryptionService = encryptionService;
         }
 
 
